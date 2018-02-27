@@ -83,7 +83,7 @@ users), however, it has a higher latency and data takes longer to transmit.
 
 ---
 
-## Frequency Division Multiplexing vs Time Division Multiplexing
+### Frequency Division Multiplexing vs Time Division Multiplexing
 
 FDM means that we divide the bandwidth into a set of frequency channels.
 an example of this is FM radios. They all have the same bandwidth, at 
@@ -101,6 +101,95 @@ There are other means of multiplexing, but these are the main 2 kinds we
 will look at. 
   
 ---
+
+## Delay, Loss, and Throughput
+
+
+
+### Loss
+
+Packets are usually transmitted and queued on the receiving end until 
+the message is complete. Sometimes, some packets to not arrive, so they 
+have to be re-requested. This is called **loss**. It is caused becuase 
+of the way that packets are transmitted, where they are queued on the 
+receiving end. 
+ 
+---
+
+### Delay 
+
+There are many sources of delay. It could be caused by the connection
+to your ISP being overloaded, your switch/access point being crowded.
+This is called **transmission delay**.  This is the usually the source
+of delay, and usually the biggest one. This is expressed by
+
+> L<sub>a</sub>/R 
+
+where L<sub>a</sub> is the size of the data and R is the bandwidth.
+
+Close to 0, there is no delay. If it is close to 1 , it gets slower. A 
+ratio of higher than 1 means there are losses.
+
+Another source of delay is **nodal processing**. This is caused by one 
+of the devices(server or client) not having the resources to handle 
+the amount of requests/responses. This is rarely the source of delay
+
+**Propagation delay** is delay caused by the distance between the server
+and the client. It is worse for wireless mediums than for wired ones. This
+has the smallest effect on delay.
+
+The fourth source of delay is the **queuing delay**. This is caused by
+the buffer being filled, causing losses if it has to clear buffers. This
+may occasionally happen, but is not often the source of delay.
+
+---
+
+
+### Throughput
+
+Throughput is the rate(bits/unit time) at which bits transferred between the sender
+and receiver. There are 2 kinds :
+
+1. Average Throughput : The Throughput over a long period of time.
+2. Instantaneous Throughput : The Throughput at a certain instant of time.
+
+The rate is dependant on the bandwidth. This is
+called the **bottleneck**. The bottleneck link is the link on the end to end path 
+that constraints an end to end throughput. Usually, the client has a lower bandwidth.
+However there are some cases, when there is a lot of load(or traffic) on the server, 
+that the bottleneck is coming from the server.
+
+## Layers and Protocols
+
+Networks have many pieces and components. They are very complex
+and interdependent. 
+
+Transferring data over the network takes a series of steps, each of which
+is responsible for a part of the transmission. This makes it easier to 
+trace errors and keep things in check. Traditional networking has 5 layers
+(more modern networking models have 7 layers).
+
+The Layer model has its pros and cons. It makes it easier to manage a complex system
+and keep it's components updatable and maintainable. However, Layering makes it
+difficult to improve a complex system, because the whole system has to be 
+improved.
+
+Here are the 2 models, side by side :
+
+![layers](https://www.tutorialspoint.com/ipv4/images/tcpip_layers.jpg)
+
+
+Throughout this course, we will be discussing the TCP/IP reference model. 
+Each layer has its own role, and we will be talking about each in detail.
+
+### Encapsulation
+
+Every message sent on the TCP/IP stack has some identifiers attached to it.
+
+![encap](https://flylib.com/books/4/271/1/html/2/files/02fig02.gif)
+
+
+
 
 
 
