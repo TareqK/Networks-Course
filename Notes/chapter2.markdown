@@ -102,6 +102,8 @@ each of them has a use in network applications.
 VoIP, live streaming, and games use UDP. Web applications, email, and
 text messages use TCP. 
 
+---
+
 ## Web and HTTP 
 
 a web page consists of objects connected to each other Connected by a 
@@ -130,10 +132,69 @@ and we want to serve all these clients, and the time period for each
 client will only allow us transfer 1 object. This rarely happens, but
 it is always good to be prepared.
 
+The time of persistent HTTP is better. This is because we need to 
+open less sockets, therefore, we dont need to handshake as often, 
+which means the **round trip time** is not repeated as often,
+only the **transmission time** is added up after the socket is opened.
+
+In fact, response time is given by :
+
+> response time = 2\*round trip time + transmission time 
+
 There are 2 types of HTTP messages :
 
 1. Request : This is a human readable ASCII message that asks the server
 for a certain object. There are multiple types of request(GET, POST, PUT, DELETE).
 
+2. Response :  This is the response to our HTTP request. It contains a header, 
+about what the data type is, the status code, and the data. It also contains
+a bunch of other things, but these are the most important parts usually.
 
+---
 
+### User-server state : Cookies
+
+A Cookie is a small piece of information that the server writes on the 
+client for later use. The cookie is in the header of the HTTP response,
+and is sent with every new request to the website, also in the header.
+
+Even though HTTP is a **stateless** protocol, using cookies, we can keep
+authorisation and authentication across a website, and even sometimes
+across websites.
+
+Cookies are used for authorisation, shopping carts, recommendation, 
+user session states, etc. They do however permit sites to learn a 
+lot about you, and are a privacy concern.
+
+---
+
+### Web Caches and Proxy Server
+
+The goal of a proxy is to satisfy client requests without involving
+the origin server. This means that we reduce the congestion 
+on the bandwidth line, with the added benefit of security and 
+filtration. 
+
+The proxy can cache some objects, and when they are requested, it
+gets the differentials from the origin server.
+
+Proxies are outside facing. This is because it makes no sense to 
+cache a local server. 
+
+This is all done through the **Conditional GET Request**. It specifies
+an if relating to if the content has been modified, and if so, fetches
+the differentials.
+
+---
+
+## Electronic Mail : SMTP, POP3, IMAP
+
+Email has 3 components :
+
+1. User Agent 
+2. Mail Servers
+3. Simple Mail Transfer Protocol
+
+Email is a reliable transfer protocol, using port numbers 25 and 100.
+SMTP is a push protocol. An email message has 2 parts : a header, containing
+from, to, subject, CC, BCC, etc, and the body, which is an ASCII message.
