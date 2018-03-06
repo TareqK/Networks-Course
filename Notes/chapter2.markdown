@@ -135,3 +135,5 @@ There are 2 types of HTTP messages :
 1. Request : This is a human readable ASCII message that asks the server
 for a certain object. There are multiple types of request(GET, POST, PUT, DELETE).
 
+
+
