@@ -198,3 +198,149 @@ Email has 3 components :
 Email is a reliable transfer protocol, using port numbers 25 and 100.
 SMTP is a push protocol. An email message has 2 parts : a header, containing
 from, to, subject, CC, BCC, etc, and the body, which is an ASCII message.
+
+Attachments are sent along with the mail, and are part of the message.
+
+---
+
+## DNS : Domain Name Service
+
+DNS is a distributed database of IP addresses and domain names(it
+is a bit more convoluted, but lets assume it is like that). The purpose 
+of DNS is to give internet locations(servers) a human-readable name 
+that can be translated into a computer-readable one. For example, 
+www.mydomain.com references some IP address 192.172.142.134 . 
+
+This makes it easier to remember websites and other resources on a network.
+Instead of putting all these IP addresses, we just have to remember
+its **URL**.
+
+
+This database is distributed over many many servers. 
+
+The Workflow is as follows :
+
+- The application sends the domain name we want to the DNS server.
+
+- The DNS server looks up the domain name and finds its IP.
+
+- If it is not on the DNS server, the DNS server looks for it on another
+DNS server, then caches it.
+
+- The DNS server returns the IP address.
+
+There are different kinds of DNS Servers
+
+- Top Level Domain : these are responsible for a whole domain, such as .com, .org, etc.
+
+- Authoritative : these are DNS servers that belong to an organisation. These are the only
+DNS servers that can give us an IP address(except for local cache).
+
+- Local DNS server : does not really belong to a hierarchy, for example, each ISP has one.
+
+### Iterated Queries 
+
+(I dunno, go talk to that server)
+
+- I send the query to the local(default) DNS.
+
+- Its not there, so the DNS server returns the IP address of the DNS server
+that has it.
+
+- If it is not there, the DNS server returns the IP address of the DNS server
+that has it, and so on and so forth, until it is found.
+
+- Once it is found, the local DNS returns the IP address to me.
+
+---
+
+### Recursive Queries 
+
+(hold on ill go grab it for you)
+
+- I send the query to the local DNS.
+
+- If it is not there, the local DNS sends it to a higher level DNS.
+
+- If its not there, it sends it to an even higher level DNS.
+
+- This keeps going on until the IP is found, and is returned through
+all the servers on the path.
+
+- Once it is found, the local DNS returns the IP address to me.
+
+---
+
+Iterative is faster than recursive, however, there is a higher load
+on the local(default) DNS.
+
+Queries are done over UDP, Resource Records are transferred using TCP.
+
+### DNS records 
+
+Distributed DB storing Resource Records.
+
+Resource Record format : (name, value,type, ttl).
+
+Types :
+
+- Type A  : name is hostname, value is IP.
+
+- Type NS : name is domain(foo.bar), value is the hostname of the authoritative name server of the domain.
+
+- Type CNAME : name is alias for some real(canonical) name, value is canonical name.
+
+- Type MX : value is the name of the mailserver associated with the name.
+
+Each new registration will create  a type A record for the site, and a 
+type NS record for the domain. If we went to register a mail server we also 
+need a type MX record. If our organisation has multiple servers for the 
+same service(eg local servers in each region for the website), we also 
+need type CNAME record. We register at a DNS registar.
+
+---
+
+### DNS Query/Response Structure
+
+A DNS query and response have the same structure, which looks like this :
+
+![DNS  Query/Response structure](https://upload.wikimedia.org/wikipedia/commons/4/40/Dns_message.jpg)
+
+---
+
+### Attacks on DNS
+
+- DDOS.
+
+- Redirect.
+
+- Bombard TLD.
+
+- Exploits. 
+
+---
+
+### Caching 
+
+DNS servers will cache the responses that they get if they dont already
+have them. This makes it faster, because we dont have to go through
+the whole process. Your local DNS especially does this.
+
+---
+
+## Peer to Peer Architecture
+
+Peer to Peer architecture is a network architecture that differs from 
+client/server, in that the client is also the server, and each peer in 
+the network has part of the content, and provides resources to other 
+peers.
+
+There is a lot of controversy surrounding peer to peer, because a lot 
+of applications violate copyright laws. However, peer to peer is faster,
+and infinitely scalable, since each new peer adds resources and load to 
+the system.
+
+
+
+
+---
