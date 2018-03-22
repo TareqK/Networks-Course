@@ -340,7 +340,61 @@ of applications violate copyright laws. However, peer to peer is faster,
 and infinitely scalable, since each new peer adds resources and load to 
 the system.
 
+In peer to peer, peers are any device on the network. Information 
+is transmitted between these devices without the need for a server. 
+Because of this structure, peer to peer allows us faster transfer speeds,
+because we take the data from multiple places at the same time. 
 
+### File Distribution
 
+In client/server architecture, the server distributes a file to 
+multiple clients. There a bunch of limits here : the upload capacity of the 
+server, the download capacity of the client, and the upload capacity 
+of the client. Furthermore, the file transfer goes at the rate of the
+**slowest client download**. This causes a higher distribution time.
+
+However, in peer to peer, every client is also the server, and each 
+file is split into multiple parts spread across multiple clients, 
+resulting in higher overall throughput and utilization. Further more, 
+the server(or the first seeder) needs to only send the file once, 
+and the peers then distribute it to each other. 
+
+The speed of peer to peer and client/server models have equations
+to calculate them, look these up yourself.
+
+#### BitTorrent
+
+BitTorrent is an example of a peer to peer file transfer service.
+
+The BitTorrent network has 2 parts : the tracker, which tracks the peers
+participating(and what chunks they have of the file),
+and the torrent, the group of users exchanging chunks of a file.
+Files are divided into 256Kb chunks(usually), and peers in the torrent
+send/receive file chunks.
+
+To Join a torrent, we register ourselves on the tracker that is tracking
+this torrent. Upon joining the torrent, the tracker sends the list of peers to the new
+peer(and adds it to the peer list). Once the peer is in the torrent,
+it starts gathering chunks of the file(and uploads the chunks it has),
+until it is complete. After that,it can either leave the network,
+or it can stay on the network and upload chunks to other peers. 
+
+It is a bit more convoluted, since requests, responses, and which 
+chunks are transferred are all determined by a special algorithm. But the
+basic idea remains.
+
+---
+
+### Scalability 
+
+Peer to peer networks are infinitely self scalable, due to the fact that each
+peer adds resources and load, and its total bandwidth keeps increasing as well.
+
+Eventually, the time needed to transfer a file reaches a limit, since there
+is more than enough bandwidth.
+
+---
+
+##  Content Distribution Networks
 
 ---
