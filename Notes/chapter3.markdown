@@ -235,6 +235,18 @@ to lost packets and long delays.
 Congestion control is adapting our behavior to these conditions.
 
 
+
+#### Congestion Avoidance
+
+We use an **additive increase** and a **multiplicative decrease**. 
+
+The approach is that the sender increase the congestion window size by 1 MSS ever 
+RTT until loss is detected. the cwnd is cut by half after each loss.
+
+#### Congestion Control
+
+INSERT 
+
 ---
 
 
